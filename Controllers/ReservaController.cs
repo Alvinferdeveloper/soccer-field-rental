@@ -176,7 +176,7 @@ public class ReservaController : Controller
         int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         // Buscar usuarios que coincidan con el término de búsqueda (en este caso, por nombre)
         var rents = _context.Rents
-                            .Where(r => r.UserId == userId && r.Active == true)
+                            .Where(r => r.UserId == userId && r.Active == true && r.DateTime > DateTime.Now)
                             .Include(r => r.User)
                             .Include(r=> r.Field)
                             .ToList();

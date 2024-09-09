@@ -1,0 +1,60 @@
+@{
+    Layout = "_DashboardLayout";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Usuarios</title>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-8 w-[85%]">
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="py-3 px-6">
+                            Nombre
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Apellido
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Email
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Cumpleaños
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var user in ViewBag.Users){
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td class="py-4 px-6">
+                            @user.Name
+                        </td>
+                        <td class="py-4 px-6">
+                            @user.LastName
+                        </td>
+                        <td class="py-4 px-6">
+                            @user.Email
+                        </td>
+                        <td class="py-4 px-6">
+                            @user.Birthday.ToString("yyyy-MM-dd")
+                        </td>
+                        <td class="py-4 px-6 text-right">
+                            <a href="#" class="text-blue-600 hover:text-blue-900 dark:text-blue-500">Editar</a>
+                            <a href="#" class="text-red-600 hover:text-red-900 ml-4">Eliminar</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

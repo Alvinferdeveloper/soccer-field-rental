@@ -18,7 +18,7 @@
             <div class="">
                 Nombre de la app
             </div>
-            <nav class=" w-[40%]">
+            <nav class=" w-[60%]">
                 <ul>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -27,6 +27,7 @@
                          <li><a href="/reserva/Buscar">Buscar reserva</a></li>
                           <li><a href="/reserva/MisReservas">Obtener mis reservas </a></li>
                         <li><a href="/Auth/Logout">Logout</a></li>  
+                        <li><a href="/Home/index">Reservar</a></li>
                         </div>
                     }
                     else
@@ -34,6 +35,7 @@
                         <div class=" flex justify-evenly">
                             <li><a href="/Auth/index">Login</a></li>
                             <li><a href="/reserva/Buscar">Buscar reserva</a></li>
+                            <li><a href="/Home/index">Reservar</a></li>
                         </div>
                     }
                 </ul>

@@ -252,3 +252,4 @@ C:\Users\alvin\Documents\net_proyects\proyectoCanchas\obj\Debug\net8.0\refint\pr
 C:\Users\alvin\Documents\net_proyects\proyectoCanchas\obj\Debug\net8.0\proyectoCanchas.pdb
 C:\Users\alvin\Documents\net_proyects\proyectoCanchas\obj\Debug\net8.0\proyectoCanchas.genruntimeconfig.cache
 C:\Users\alvin\Documents\net_proyects\proyectoCanchas\obj\Debug\net8.0\ref\proyectoCanchas.dll
+C:\Users\alvin\Documents\net_proyects\proyectoCanchas\obj\Debug\net8.0\proyectoCanchas.sourcelink.json

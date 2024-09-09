@@ -53,6 +53,12 @@ public class AdminController : Controller
         return View();
     }
 
+    public IActionResult Users(){
+        var users = _context.Users.ToList();
+        ViewBag.Users = users;
+        return View();
+    }
+
 
 
 }

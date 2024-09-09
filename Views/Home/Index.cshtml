@@ -116,10 +116,21 @@
                                     </div>
                                    
                                   
-                                   <button type="button" onclick="cambiarFecha()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Recargar</button>
+                                <div class=" flex">
+                                    <button type="button" onclick="cambiarFecha()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Recargar</button>
+                                    <div class="flex items-center mx-3">
+                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Seleccionado
+                                    </div>
+                                    <div class="flex items-center mx-3">
+                                        <div class="h-2.5 w-2.5 rounded-full bg-gray-500 me-2"></div> Fuera de fecha
+                                    </div>
+                                    <div class="flex items-center mx-3">
+                                        <div class="h-2.5 w-2.5 rounded-full bg-black me-2"></div> Reservado
+                                    </div>
+                                   </div>
                                 </th>
                             </thead>
-                            <tbody>
+                            <tbody class="body1">
                                 @for (int r = 0; r < filas; r++)
                                 {
                                     <tr>
@@ -187,10 +198,21 @@
                                             class="bg-black-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Select date">
                                     </div>
-                                     <button type="button" onclick="cambiarFecha()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Recargar</button>
+                                    <div class=" flex">
+                                    <button type="button" onclick="cambiarFecha()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Recargar</button>
+                                    <div class="flex items-center mx-3">
+                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Seleccionado
+                                    </div>
+                                    <div class="flex items-center mx-3">
+                                        <div class="h-2.5 w-2.5 rounded-full bg-gray-500 me-2"></div> Fuera de fecha
+                                    </div>
+                                    <div class="flex items-center mx-3">
+                                        <div class="h-2.5 w-2.5 rounded-full bg-black me-2"></div> Reservado
+                                    </div>
+                                   </div>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="body2">
                                 @for (int r = 0; r < filas; r++)
                                 {
                                     <tr>
@@ -279,6 +301,40 @@
             document.getElementById("form2").submit();
 
         }
+
+    
+
+        const fechaCampo1 = document.getElementById("datepicker-format").value;
+        const fechaCampo2 = document.getElementById("datepicker-format2").value;
+
+        const tableBody1 = document.querySelector(".body1");
+        const tableBody2 = document.querySelector(".body2");
+        const tdsBody1 = [...tableBody1.querySelectorAll("td")];
+        const tdsBody2 = [...tableBody2.querySelectorAll("td")];
+        tdsBody1.forEach(td => {
+        let fechaActual = new Date();
+        let fechaHoraString = `${fechaCampo1}T${td.innerText}:00`;
+        if(new Date(fechaHoraString) < new Date()){
+        td.classList.add("bg-gray-500")
+        td.onclick = null;
+        }
+        })
+
+        let hora = "10:30";
+
+// Unir la fecha y la hora
+        let fechaHoraString = `${fecha}T${hora}:00`; // El formato ISO requiere 'T' entre la fecha y la hora
+
+// Convertir el string a un objeto Date
+        let fechaHora = new Date(fechaHoraString);
+
+// Obtener la fecha y hora actual
+        let fechaActual = new Date();
+
+// Comparar si la fecha y hora combinadas es menor a la actual
+    if (fechaHora < fechaActual) {
+
+    }
 
         // Establecer la fecha actual en el Datepicker
         

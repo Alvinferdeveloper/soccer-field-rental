@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("proyectoCanchas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc1483b77546cfacf7fef9b6dfd0d06f1359ccfd")]
 [assembly: System.Reflection.AssemblyProductAttribute("proyectoCanchas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("proyectoCanchas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
