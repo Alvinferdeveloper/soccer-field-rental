@@ -11,7 +11,8 @@
 <body class="bg-gray-100">
     <div class="container mx-auto mt-8 w-[85%]">
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <h4 class=" text-center mb-5 text-lg text-white">Usuarios Inhabilidatos</h4>
+            <h4 class=" text-center mb-5 text-lg text-white">Administradores del sistema</h4>
+            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><a href="/Admin/Users">Nuevo Administrador</a></button>
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -27,29 +28,22 @@
                         <th scope="col" class="py-3 px-6">
                             Cumpleaños
                         </th>
-                        <th scope="col" class="py-3 px-6">
-                            Acciones
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var user in ViewBag.Users){
+                    @foreach(var admin in ViewBag.Administradores){
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="py-4 px-6">
-                            @user.Name
+                            @admin.Name
                         </td>
                         <td class="py-4 px-6">
-                            @user.LastName
+                            @admin.LastName
                         </td>
                         <td class="py-4 px-6">
-                            @user.Email
+                            @admin.Email
                         </td>
                         <td class="py-4 px-6">
-                            @user.Birthday.ToString("yyyy-MM-dd")
-                        </td>
-                        <td class="py-4 px-4 ">
-                            <a href="/Admin/Rents?id=@user.Id" class="text-blue-600 hover:text-blue-900 dark:text-blue-500">Ver Rentas</a>
-                            <a href="/Admin/HabilitarUsuario?id=@user.Id" class="text-green-600 hover:text-red-900 ml-4">Habilitar</a>
+                            @admin.Birthday.ToString("yyyy-MM-dd")
                         </td>
                     </tr>
                     }

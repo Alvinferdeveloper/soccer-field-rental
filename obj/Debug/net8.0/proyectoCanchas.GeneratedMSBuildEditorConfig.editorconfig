@@ -26,8 +26,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\alvin\Documents\net_proyects\proyectoCanchas
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/alvin/Documents/net_proyects/proyectoCanchas/Views/Admin/Administradores.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5pc3RyYWRvcmVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/alvin/Documents/net_proyects/proyectoCanchas/Views/Admin/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alvin/Documents/net_proyects/proyectoCanchas/Views/Admin/RentasInvitados.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVudGFzSW52aXRhZG9zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alvin/Documents/net_proyects/proyectoCanchas/Views/Admin/Rents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/alvin/Documents/net_proyects/proyectoCanchas/Views/Admin/Users.cshtml]

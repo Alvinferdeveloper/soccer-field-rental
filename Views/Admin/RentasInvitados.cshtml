@@ -1,17 +1,19 @@
 @{
+
     Layout = "_DashboardLayout";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla de Usuarios</title>
+    <title>Tabla de Rentas</title>
 </head>
 <body class="bg-gray-100">
-    <div class="container mx-auto mt-8 w-[85%]">
-        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <h4 class=" text-center mb-5 text-lg text-white">Usuarios Inhabilidatos</h4>
+    <div class="container mx-auto p-6 w-[85%]">
+        <div class="overflow-x-auto">
+            <h4 class=" text-center text-white text-xl mb-5">Rentas de Usuarios Invitados</h4>
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -21,11 +23,14 @@
                         <th scope="col" class="py-3 px-6">
                             Apellido
                         </th>
-                        <th scope="col" class="py-3 px-6">
-                            Email
+                        <th>
+                            Cedula
+                        </th>
+                        <th>
+                            Estado
                         </th>
                         <th scope="col" class="py-3 px-6">
-                            Cumpleaños
+                            Fecha
                         </th>
                         <th scope="col" class="py-3 px-6">
                             Acciones
@@ -33,23 +38,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var user in ViewBag.Users){
+                    @foreach(var rent in ViewBag.Rents){
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="py-4 px-6">
-                            @user.Name
+                            @rent.ClientName
                         </td>
                         <td class="py-4 px-6">
-                            @user.LastName
+                            @rent.ClientLastName
                         </td>
                         <td class="py-4 px-6">
-                            @user.Email
+                            @rent.ClientCedula
                         </td>
+                        <td>
+                            @if(rent.DateTime < DateTime.Now){
+                                <div class="flex items-center mx-3">
+                                     <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> Inactiva
+                            </div>
+                            }else{
+                                 <div class="flex items-center mx-3">
+                                     <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Activa
+                            </div>
+                            }
+                        </td>
+                        
                         <td class="py-4 px-6">
-                            @user.Birthday.ToString("yyyy-MM-dd")
+                           @rent.DateTime.ToString()
                         </td>
                         <td class="py-4 px-4 ">
-                            <a href="/Admin/Rents?id=@user.Id" class="text-blue-600 hover:text-blue-900 dark:text-blue-500">Ver Rentas</a>
-                            <a href="/Admin/HabilitarUsuario?id=@user.Id" class="text-green-600 hover:text-red-900 ml-4">Habilitar</a>
+                            @if(rent.DateTime > DateTime.Now){
+                            <a href="/Admin/EliminarReserva?id=@rent.Id" class="text-red-600 hover:text-red-900 ml-4">Eliminar Reserva</a>
+
+                            }
                         </td>
                     </tr>
                     }
@@ -57,5 +76,7 @@
             </table>
         </div>
     </div>
+
+    
 </body>
 </html>

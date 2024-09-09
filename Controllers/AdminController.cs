@@ -80,6 +80,35 @@ public class AdminController : Controller
         return RedirectToAction("UsuariosInhabilitados","Admin");
     }
 
+    public ActionResult Rents(int id){
+        var rents = _context.Rents.Where(r => r.UserId == id && r.Active == true).Include(r => r.User).OrderByDescending(r => r.DateTime).ToList();
+        ViewBag.Rents = rents;
+        return View();
+    }
+
+    public ActionResult EliminarReserva(int id){
+         var rent = _context.Rents.Include(r => r.User).FirstOrDefault(u => u.Id == id);
+        rent.Active = false;
+        _context.SaveChanges();
+        if(rent.ClientType == "INVITED"){
+            return RedirectToAction("RentasInvitados", "Admin");
+        }
+        return RedirectToAction("Rents", "Admin", new { id = rent.User.Id });
+
+    }
+
+    public ActionResult RentasInvitados(){
+        var rents = _context.Rents.Where(r => r.ClientType == "INVITED" && r.Active == true).OrderByDescending( r => r.DateTime);
+        ViewBag.Rents = rents;
+        return View();
+    }
+
+    public ActionResult Administradores(){
+        var administradores = _context.Users.Where(u => u.UserRoles.Where( ur => ur.Role.Name == "Admin").Count() != 0);
+        ViewBag.Administradores = administradores;
+        return View();
+    }
+
 
 
 

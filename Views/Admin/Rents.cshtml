@@ -1,0 +1,77 @@
+@{
+
+    Layout = "_DashboardLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Rentas</title>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <div class="overflow-x-auto">
+             <h4 class=" text-center text-white text-xl mb-5">Rentas de Usuarios</h4>
+             <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><a href="/Admin/Users">Ir Atras</a></button>
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="py-3 px-6">
+                            Nombre
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Email
+                        </th>
+                        <th>
+                            Estado
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Fecha
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var rent in ViewBag.Rents){
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td class="py-4 px-6">
+                            @rent.User.Name
+                        </td>
+                        <td class="py-4 px-6">
+                            @rent.User.Email
+                        </td>
+                        <td>
+                            @if(rent.DateTime < DateTime.Now){
+                                <div class="flex items-center mx-3">
+                                     <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> Inactiva
+                            </div>
+                            }else{
+                                 <div class="flex items-center mx-3">
+                                     <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Activa
+                            </div>
+                            }
+                        </td>
+                        
+                        <td class="py-4 px-6">
+                           @rent.DateTime.ToString()
+                        </td>
+                        <td class="py-4 px-4 ">
+                            @if(rent.DateTime > DateTime.Now){
+                            <a href="/Admin/EliminarReserva?id=@rent.Id" class="text-red-600 hover:text-red-900 ml-4">Eliminar Reserva</a>
+
+                            }
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+</body>
+</html>

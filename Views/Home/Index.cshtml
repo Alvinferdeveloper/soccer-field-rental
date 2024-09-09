@@ -320,6 +320,15 @@
         }
         })
 
+        tdsBody2.forEach(td => {
+        let fechaActual = new Date();
+        let fechaHoraString = `${fechaCampo2}T${td.innerText}:00`;
+        if(new Date(fechaHoraString) < new Date()){
+        td.classList.add("bg-gray-500")
+        td.onclick = null;
+        }
+        })
+
         let hora = "10:30";
 
 // Unir la fecha y la hora
