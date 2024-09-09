@@ -35,7 +35,7 @@ public class AuthController : Controller
         var user = await _context.Users
     .Include(u => u.UserRoles)         // Cargar los roles del usuario
     .ThenInclude(ur => ur.Role)        // Cargar los detalles del rol
-    .FirstOrDefaultAsync(u => u.Email == model.Email);
+    .FirstOrDefaultAsync(u => u.Email == model.Email && u.Active == true);
 
 
         // Verificar que el usuario existe y que la contraseña es correcta

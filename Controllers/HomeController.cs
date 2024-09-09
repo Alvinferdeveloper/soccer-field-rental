@@ -5,7 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using proyectoCanchas.Models;
 namespace proyectoCanchas.Controllers;
 
-
+ [AllowAnonymous]
+[Authorize(Roles = "USER")]
 public class HomeController : Controller
 {
 

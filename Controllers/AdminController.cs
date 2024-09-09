@@ -54,10 +54,32 @@ public class AdminController : Controller
     }
 
     public IActionResult Users(){
-        var users = _context.Users.ToList();
+        var users = _context.Users.Where(u => u.Active == true && (u.UserRoles.Where(r => r.Role.Name == "ADMIN").Count() ==0)).ToList();
         ViewBag.Users = users;
         return View();
     }
+
+    public IActionResult UsuariosInhabilitados(){
+        var users = _context.Users.Where(u => u.Active == false && (u.UserRoles.Where(r => r.Role.Name == "ADMIN").Count() ==0)).ToList();
+        ViewBag.Users = users;
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult DeshabilitarUsuario(int id){
+        var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+        user.Active = false;
+        _context.SaveChanges();
+        return RedirectToAction("Users","Admin");
+    }
+
+    public IActionResult HabilitarUsuario(int id){
+        var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+        user.Active = true;
+        _context.SaveChanges();
+        return RedirectToAction("UsuariosInhabilitados","Admin");
+    }
+
 
 
 
