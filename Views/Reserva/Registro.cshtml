@@ -1,0 +1,67 @@
+
+@{
+    ViewData["Title"] = "Confirmación de Reserva";
+     ViewBag.Title = "Confirmación de Reserva";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro de Cliente</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/flowbite@1.6.3/dist/flowbite.js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold text-center mb-6">Registro de renta de campo</h2>
+        <form action="/reserva/Confirmacion" method="POST">
+            <div class="mb-4">
+                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Cliente</label>
+                <input type="text" id="nombre" name="nombre" class="block w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese el nombre" required>
+            </div>
+
+            <!-- Apellido del Cliente -->
+            <div class="mb-4">
+                <label for="apellido" class="block mb-2 text-sm font-medium text-gray-900">Apellido del Cliente</label>
+                <input type="text" id="apellido" name="apellido" class="block w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese el apellido" required>
+            </div>
+
+            <!-- Cédula del Cliente -->
+            <div class="mb-4">
+                <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900">Cédula</label>
+                <input type="text" id="cedula" name="cedula" class="block w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese la cédula" required>
+            </div>
+
+            <!-- Horas de Reservación -->
+            <div class="mb-4">
+                <label for="selectedHours" class="block mb-2 text-sm font-medium text-gray-900">Horas de Reservación Primer Campo</label>
+                <div id="selectedHours" class="p-2.5 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">
+                    @ViewBag.horasPrimerCampo
+                </div>
+                Fecha: @ViewBag.fechacampo1
+            </div>
+            <div class="mb-4">
+                <label for="selectedHours" class="block mb-2 text-sm font-medium text-gray-900">Horas Reservación Segundo Campo</label>
+                <div id="selectedHours" class="p-2.5 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">
+                   @ViewBag.horasSegundoCampo
+                </div>
+                 Fecha: @ViewBag.fechacampo2
+            </div>
+            <input type="text" hidden value="@ViewBag.horasPrimerCampo" name="horasprimercampo">
+            <input type="text" hidden value="@ViewBag.horasSegundoCampo" name="horassegundocampo">
+            <input type="text" hidden value="@ViewBag.fechaCampo1" name="fechacampo1">
+            <input type="text" hidden value="@ViewBag.fechaCampo2" name="fechacampo2">
+
+            <!-- Botón de Enviar -->
+            <div class="flex justify-center">
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Registrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

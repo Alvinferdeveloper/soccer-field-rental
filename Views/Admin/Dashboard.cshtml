@@ -1,0 +1,150 @@
+
+@{
+    Layout = "_DashboardLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Estadísticas</title>
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+</head>
+
+<body class="bg-gray-100">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-2xl font-bold text-blue-500">Dashboard</h1>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+
+    <!-- Heading -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-semibold text-gray-900">Estadísticas de los Campos de Fútbol</h2>
+      <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Descargar Reporte</button>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Card 1: Total Rentas Campo 1 -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm text-gray-500 font-semibold">Total Rentas - Campo 1</h3>
+            <h2 class="text-3xl font-bold text-gray-900 mt-2">120</h2>
+          </div>
+          <div class="text-blue-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 20a8 8 0 100-16 8 8 0 000 16z" />
+              <path d="M13.172 6.586A4 4 0 1010 14V8h4a1 1 0 00.707-1.707l-1.535-1.535z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Total Rentas Campo 2 -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm text-gray-500 font-semibold">Total Rentas - Campo 2</h3>
+            <h2 class="text-3xl font-bold text-gray-900 mt-2">85</h2>
+          </div>
+          <div class="text-green-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 20a8 8 0 100-16 8 8 0 000 16z" />
+              <path d="M13.172 6.586A4 4 0 1010 14V8h4a1 1 0 00.707-1.707l-1.535-1.535z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Ganancias Totales Campo 1 -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm text-gray-500 font-semibold">Ganancias Totales - Campo 1</h3>
+            <h2 class="text-3xl font-bold text-gray-900 mt-2">$@ViewBag.totalGananciaCampo1</h2>
+          </div>
+          <div class="text-yellow-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5 10a5 5 0 0110 0v2h-2v-2a3 3 0 10-6 0v2H5v-2z" />
+              <path d="M4 13h12v3H4v-3z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Ganancias Totales Campo 2 -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm text-gray-500 font-semibold">Ganancias Totales - Campo 2</h3>
+            <h2 class="text-3xl font-bold text-gray-900 mt-2">$@ViewBag.totalGananciaCampo2</h2>
+          </div>
+          <div class="text-red-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5 10a5 5 0 0110 0v2h-2v-2a3 3 0 10-6 0v2H5v-2z" />
+              <path d="M4 13h12v3H4v-3z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Ganancias Último Mes - Campo 1 -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm text-gray-500 font-semibold">Ganancias Último Mes - Campo 1</h3>
+            <h2 class="text-3xl font-bold text-gray-900 mt-2">$2,000</h2>
+          </div>
+          <div class="text-purple-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5 10a5 5 0 0110 0v2h-2v-2a3 3 0 10-6 0v2H5v-2z" />
+              <path d="M4 13h12v3H4v-3z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: Ganancias Último Mes - Campo 2 -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm text-gray-500 font-semibold">Ganancias Último Mes - Campo 2</h3>
+            <h2 class="text-3xl font-bold text-gray-900 mt-2">$1,500</h2>
+          </div>
+          <div class="text-indigo-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5 10a5 5 0 0110 0v2h-2v-2a3 3 0 10-6 0v2H5v-2z" />
+              <path d="M4 13h12v3H4v-3z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-10 text-center text-white text-sm ">
+      © 2024 - Mi Aplicación de Estadísticas
+    </footer>
+
+  </div>
+
+ 
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,322 @@
+﻿@model proyectoCanchas.Models.ReservaModel;
+@{
+    // Hora de inicio y fin en formato de números (horas y minutos)
+    int horaInicio = 8; // 08:00 AM
+    int minutoInicio = 0;
+    int horaFin = 18; // 06:00 PM
+    int minutoFin = 0;
+
+    // Intervalo en minutos
+    int intervalo = 30;
+    var rentsCampo1 = ViewBag.rentsCampo1;
+    var rentsCampo2 = ViewBag.rentsCampo2;
+    var fecha1 = ViewBag.fecha1;
+
+    List<string> horasOcupadas1 = new List<string>();
+        foreach(var rentaCampo1 in rentsCampo1){
+            horasOcupadas1.Add(rentaCampo1.DateTime.ToString());
+        }
+    List<string> horasOcupadas2 = new List<string>();
+        foreach(var rentaCampo2 in rentsCampo2){
+            horasOcupadas2.Add(rentaCampo2.DateTime.ToString());
+        }
+
+    // Calcular las horas en intervalos de 30 minutos
+    List<string> horas = new List<string>();
+    for (int hora = horaInicio; hora < horaFin || (hora == horaFin && minutoFin == 0); hora++)
+    {
+        for (int minuto = minutoInicio; minuto < 60; minuto += intervalo)
+        {
+            if (hora == horaFin && minuto > minutoFin) break; // Salir del bucle si se pasa la hora de fin
+            horas.Add($"{hora:D2}:{minuto:D2}");
+        }
+    }
+
+    // Número de columnas
+    int columnas = 4;
+
+    // Calcular el número de filas necesarias
+    int filas = (int)Math.Ceiling((double)horas.Count / columnas);
+    string action = "";
+    if(!User.Identity.IsAuthenticated) action = "/reserva/Registro";
+    else action = "/reserva/CreateRent";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector de Horas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .hover:bg-blue-200 {
+            background-color: #e0f7ff;
+        }
+
+        .selected {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .datepicker-picker {
+            background-color: black !important;
+        }
+
+        .datepicker-header {
+            background-color: black !important;
+            color: black !important;
+        }
+
+        .datepicker-controls button {
+            background: black !important;
+            ;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto">
+        <form id="reservationForm"  action="@action" method="post" onsubmit="return isNotEmpty()">
+            <div class="grid grid-cols-2 gap-8 mb-8">
+                <!-- Primer campo de fútbol -->
+                <div class="relative">
+                   
+                    <div class="bg-green-500 w-full h-60 rounded-lg"></div>
+                    <button type="button" onclick="toggleTable('table1')"
+                        class="absolute bottom-0 left-0 w-full py-2 bg-blue-500 text-white rounded-b-lg">Mostrar
+                        Horario - Campo 1</button>
+                    <div id="table1" class="mt-2">
+                        <table class="min-w-full bg-white rounded-lg">
+                            <thead>
+                                <th colspan="4">
+                                        <div class="relative max-w-sm">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 text-gray-400" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                            </svg>
+                                        </div>
+                                        <input id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd"
+                                            type="text" name="fechacampo1"
+                                            value="@ViewBag.fecha1.ToString()"
+                                             onchange="submitForm()"
+                                            class="bg-black-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Select date">
+                                    </div>
+                                   
+                                  
+                                   <button type="button" onclick="cambiarFecha()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Recargar</button>
+                                </th>
+                            </thead>
+                            <tbody>
+                                @for (int r = 0; r < filas; r++)
+                                {
+                                    <tr>
+                                        @for (int c = 0; c < columnas; c++)
+                                        {
+                                            int index = r * columnas + c;
+                                            if (index < horas.Count)
+                                            {
+                                             
+                                               if(horasOcupadas1.Find(ho => ho.Contains(horas[index]))!= null)
+                                                {
+                                                    
+                                                <td id="cell1-@index"
+                                                    class="py-2 px-4 border text-center cursor-pointer bg-black text-white hover:bg-blue-500"
+                                                    onclick="selectHour('@horas[index]', 'selection1', null, 'Campo1')" dis>
+                                                    @horas[index]
+                                                </td>
+                                                    
+                                                }else {
+                                                     <td id="cell1-@index"
+                                                    class="py-2 px-4 border text-center cursor-pointer hover:bg-blue-200"
+                                                    onclick="selectHour('@horas[index]', 'selection1', 'cell1-@index', 'Campo1')" dis>
+                                                    @horas[index]
+                                                </td>
+                                                }
+                                               
+                                            }
+                                            else
+                                            {
+                                                <td class="py-2 px-4 border text-center"></td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Segundo campo de fútbol -->
+                <div class="relative">
+                    <div class="bg-green-500 w-full h-60 rounded-lg"></div>
+                    <button type="button" onclick="toggleTable('table2')"
+                        class="absolute bottom-0 left-0 w-full py-2 bg-blue-500 text-white rounded-b-lg">Mostrar
+                        Horario - Campo 2</button>
+                    <div id="table2" class=" mt-2">
+                        <table class="min-w-full bg-white rounded-lg">
+                            <thead>
+                                <tr>
+
+
+                                    <div class="relative max-w-sm">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 text-gray-400" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                            </svg>
+                                        </div>
+                                        <input id="datepicker-format2" datepicker datepicker-format="yyyy-mm-dd"
+                                            type="text" name="fechacampo2"
+                                            value="@ViewBag.fecha2.ToString()"
+                                            class="bg-black-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Select date">
+                                    </div>
+                                     <button type="button" onclick="cambiarFecha()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Recargar</button>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int r = 0; r < filas; r++)
+                                {
+                                    <tr>
+                                        @for (int c = 0; c < columnas; c++)
+                                        {
+                                            int index = r * columnas + c;
+                                            if (index < horas.Count)
+                                            {
+                                                if(horasOcupadas2.Find(ho => ho.Contains(horas[index]))!= null)
+                                                {
+                                                     <td id="cell2-@index"
+                                                    class="py-2 px-4 border text-center cursor-pointer bg-black text-white hover:bg-blue-200"
+                                                    onclick="selectHour('@horas[index]', 'selection2', null, 'Campo2')">
+                                                    @horas[index]
+                                                </td>
+                                                }else{
+                                                <td id="cell2-@index"
+                                                    class="py-2 px-4 border text-center cursor-pointer hover:bg-blue-200"
+                                                    onclick="selectHour('@horas[index]', 'selection2', 'cell2-@index', 'Campo2')">
+                                                    @horas[index]
+                                                </td>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <td class="py-2 px-4 border text-center"></td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campos ocultos para almacenar las horas seleccionadas -->
+            <input type="hidden" id="selectedHoursCampo1" name="HorasCampo1" value="" />
+            <input type="hidden" id="selectedHoursCampo2" name="HorasCampo2" value="" />
+
+        
+
+            <div class="col-span-2 flex justify-center flex-col items-center">
+                <button type="submit"
+                    class="w-[50%] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Reservar</button>
+                     <p class=" text-red-500" id="alert" style="display: none;">No has reservado ningun campo</p>
+            </div>
+           
+
+
+        </form>
+        <form action="/Home/index" id="form2">
+            <input type="text" hidden id="fechaActualizar1" name="fechaActualizar1">
+             <input type="text" hidden id="fechaActualizar2" name="fechaActualizar2">
+            </form>
+    </div>
+
+    <script>
+        function obtenerFechaActual() {
+            const fecha = new Date();
+            const year = fecha.getFullYear();
+            const month = String(fecha.getMonth() + 1).padStart(1, '0'); // Los meses empiezan desde 0
+            const day = String(fecha.getDate()).padStart(1, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+
+        function isNotEmpty(e){
+            const alert = document.getElementById('alert');
+            if(document.getElementById('selectedHoursCampo1').value || document.getElementById('selectedHoursCampo2').value){
+                return true;
+                alert.style.display = 'none';
+            }
+             alert.style.display = 'block';
+             return false;
+        }
+
+        function cambiarFecha(){
+            const fecha1 = document.getElementById("datepicker-format").value;
+            const fecha2 = document.getElementById("datepicker-format2").value;
+            const fechaActualizar1 = document.getElementById("fechaActualizar1");
+            const fechaActualizar2 = document.getElementById("fechaActualizar2");
+            fechaActualizar1.value = fecha1;
+            fechaActualizar2.value = fecha2;
+            document.getElementById("form2").submit();
+
+        }
+
+        // Establecer la fecha actual en el Datepicker
+        
+        //document.getElementById("datepicker-format2").value = obtenerFechaActual();
+        //document.getElementById("datepicker-format").value = obtenerFechaActual();
+        function toggleTable(tableId) {
+            // Ocultar todas las tablas
+            document.querySelectorAll('.hidden').forEach(element => {
+                element.classList.add('hidden');
+            });
+
+            // Mostrar solo la tabla seleccionada
+            const table = document.getElementById(tableId);
+            table.classList.toggle('hidden');
+        }
+
+        function selectHour(hour, campo, cellId, nombreCampo) {
+            if(cellId == null) return;
+            // Agregar o quitar la selección de la celda
+            const cell = document.getElementById(cellId);
+            cell.classList.toggle('selected');
+
+            // Obtener el campo oculto correspondiente
+            const hiddenInput = document.getElementById(`selectedHours${nombreCampo}`);
+            console.log(hiddenInput, 'hidden');
+            let selectedHours = hiddenInput.value ? hiddenInput.value.split(',') : [];
+
+            if (cell.classList.contains('selected')) {
+                selectedHours.push(hour);
+            } else {
+                selectedHours = selectedHours.filter(h => h !== hour);
+            }
+
+            // Actualizar el valor del campo oculto
+            hiddenInput.value = selectedHours.join(',');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>
